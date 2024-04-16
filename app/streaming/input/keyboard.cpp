@@ -430,8 +430,10 @@ void SdlInputHandler::handleKeyEvent(SDL_KeyboardEvent* event)
         m_KeysDown.remove(keyCode);
     }
 
-    LiSendKeyboardEvent(0x8000 | keyCode,
-                        event->state == SDL_PRESSED ?
-                            KEY_ACTION_DOWN : KEY_ACTION_UP,
-                        modifiers);
+    if(isCaptureActive()){
+        LiSendKeyboardEvent(0x8000 | keyCode,
+                            event->state == SDL_PRESSED ?
+                                KEY_ACTION_DOWN : KEY_ACTION_UP,
+                            modifiers);
+    }
 }
